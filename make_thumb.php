@@ -6,12 +6,6 @@
 #	Company 	: Ssmart Lab.
 #	Site 		: ssmart.ru
 #	
-#	MAN
-#	start CMD
-#	cd /d E:
-#	cd web\FastOperstorMobile\parts
-#	php make_thumd_ss.php
-# 	
 #	после применения файла у вас создадутся 2 категории с резервными копиями измененных файлов и папка с измененными файлами
 */
 
