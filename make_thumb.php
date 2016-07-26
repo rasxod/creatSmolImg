@@ -5,16 +5,54 @@
 #	Author 		: Goncharov S.
 #	Company 	: Ssmart Lab.
 #	Site 		: ssmart.ru
+#	
+#	MAN
+#	start CMD
+#	cd /d E:
+#	cd web\FastOperstorMobile\parts
+#	php make_thumd_ss.php
+# 	
+#	после применения файла у вас создадутся 2 категории с резервными копиями измененных файлов и папка с измененными файлами
 */
+
+
 // start time
 $startTime = microtime(1);
 
+//arguments
+// направления [ConvertToMini, addMini, pngToGpg] 
+$napravlenie = $argv['1'];
+$newDir = date('m-Y');
+if (!is_dir($newDir)) {
+	mkdir($newDir, 0777);
+}
+
+$backDir = 'bak_'.date('m-Y');
+if (!is_dir($backDir)) {
+	mkdir($backDir, 0777);
+}
+
 // variabals
 $parsDir = "."; // "." - this directory
-$smallPrefix = 'small';
-$extFiles = 'jpg';
-$w = '250';
-$h = '250';
+
+// добавления к имени файла в конец файла
+$smallPrefix = '';
+$betweenPrefix = ''; 
+
+//расширения файлов
+if ($napravlenie == 'pngToGpg') {
+	$extFiles = array('png');
+} else {
+	$extFiles = array('jpg', 'JPG', 'png');
+}
+
+
+// префикс для старых файлов
+$oldImgPrefif = 'old';
+
+// размеры результирующих файлов
+$w = ''; // ширина
+$h = '1024'; // высота
 
 // creat image functions
 function myImage($inFile, $outFile, $w, $h) {
@@ -34,7 +72,7 @@ function myImage($inFile, $outFile, $w, $h) {
 	}
 	//проверям, вдруг изображение изначально меньше нам нужного
 	if ($w_i < $w || $h_i < $h) {
-		echo 'некорректный размер файла';
+		echo 'Wrong size '.$w_i.' < '.$w.' || '.$h_i.' < '.$h." \r\n";
 		return $err = '3';
 	}
 
@@ -65,27 +103,55 @@ function myImage($inFile, $outFile, $w, $h) {
 	return $err = 0;
 }
 // pars dir files
+function presentative($betweenPrefix, $isin, $smallPrefix, $extFiles) {
+	$result = array();
+	if ($betweenPrefix != '') { 
+		$noSmall = explode($betweenPrefix, $isin[0]);
+		if ($noSmall[1] == $smallPrefix) {
+			$result[0] = 1;
+			$result[1] = "Wrong NAME file: ". $isin[0].'.'.$isin[1]." \r\n";
+			return $result;
+		}
+	} 
+	if (in_array($isin[1], $extFiles)) {
+		$result[0] = 0;
+	} else {
+		$result[0] = 1;
+		$result[1] = "Wrong EXT file: ". $isin[1]." \r\n";
+	}
+	return $result;
+}
+
 $filelist = array();
 if ($handle = opendir($parsDir)) {
 	while ($inFile = readdir($handle)) {
 		if (is_file($inFile)) {
 			$isin = explode('.', $inFile);
-			$isno = explode('_', $inFile);
-			if ($isin[1] == $extFiles && $isno[0] != $smallPrefix) {
+			$myRes = presentative($betweenPrefix, $isin, $smallPrefix, $extFiles);
+			if ($myRes[0] == 0) {
 				echo $inFile." \r\n";
-				$outFile = $smallPrefix.'_'.$inFile;
-				if(myImage($inFile, $outFile, $w, $h) == 0) {
-					echo "Complit! \r\n";
+				$outFile = $newDir.'/'.$isin[0].$betweenPrefix.$smallPrefix.'.jpg';
+				if ($w == '' || $h == '') {
+					list($w, $h) = getimagesize($inFile);
+					if(myImage($inFile, $outFile, $w, $h) == 0) {
+						echo "Complit! ".$inFile."\r\n";
+						copy($inFile, $backDir.'/'.$inFile);
+					} 
+					$w=$h='';
+				} else {
+					if(myImage($inFile, $outFile, $w, $h) == 0) {
+						echo "Complit! ".$inFile."\r\n";
+						copy($inFile, $backDir.'/'.$inFile);
+					} 
 				}
+			} else {
+				echo $myRes[1];
 			}
 			
 		}
 	}
 	closedir($handle);
 }
-
-// print_r($filelist);
-
 
 // cms report
 $fimalTime = microtime(1);
