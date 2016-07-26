@@ -1,6 +1,7 @@
 # creatSmolImg
 Создает маленьке картинки в дирректории по параметрам
 
+<<<<<<< HEAD
 Более подробно на z1q.ru
 
 
@@ -26,3 +27,6 @@ php make_thumd_ss.php
 ## для того чтобы конвертнуть PNG в JPG
 
 php make_thumd_ss.php
+=======
+Более подробно на http://z1q.ru
+>>>>>>> origin/master
