@@ -2,20 +2,33 @@ creatSmolImg
 ====
 Создает маленьке картинки в дирректории по параметрам
 
+
+
 ## How
-     start CMD
+> кладем make_thumb.php в папку с картинками
 
-_в_ _открывшемся_ _окне_
+**start CMD**
 
-     cd E:\my_dir\parts 
+> в открывшемся окне
 
-_если_ _не_ _переходит_ _в_ _нужный_ _диск_ _добвьте_ _*/d*_ 
+**cd E:\my_dir\parts **
 
-     cd /d E:\my_dir\parts 
+> если не переходит в нужный диск добвьте **/d**
 
-_если_ _PHP_ _установлен_
+**cd /d E:\my_dir\parts**
 
-     php make_thumd.php
+> если PHP установлен и раскоментировано **extension=php_gd2.dll**
+
+**php make_thumd.php**
+
+>если не установлен качаем 
+
+**PHP**
+https://cloud.mail.ru/public/d946c803b47c/php-5.2.17-nts-Win32-VC6-x86.msi
+
+**php.ini**
+https://cloud.mail.ru/public/3be97f266e6b/php.ini
+
 
 #### обратите внимание на переменные
 > стр 33-34
