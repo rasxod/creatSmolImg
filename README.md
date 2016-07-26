@@ -5,13 +5,13 @@ creatSmolImg
 
 
 ## How
-> кладем make_thumb.php в папку с картинками
+> кладем **make_thumb.php** в папку с картинками
 
 **start CMD**
 
 > в открывшемся окне
 
-**cd E:\my_dir\parts **
+**cd E:\my_dir\parts**
 
 > если не переходит в нужный диск добвьте **/d**
 
