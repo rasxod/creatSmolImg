@@ -7,8 +7,14 @@ creatSmolImg
 
 _в_ _открывшемся_ _окне_
 
-     cd /d E: -- tck
-     cd my_dir\parts
+     cd E:\my_dir\parts 
+
+_если_ _не_ _переходит_ _в_ _нужный_ _диск_ _добвьте_ _*/d*_ 
+
+     cd /d E:\my_dir\parts 
+
+_если_ _PHP_ _установлен_
+
      php make_thumd_ss.php
 
 #### обратите внимание на переменные
