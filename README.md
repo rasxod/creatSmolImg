@@ -4,7 +4,9 @@ creatSmolImg
 
 ## How
      start CMD
+
 _в_ _открывшемся_ _окне_
+
      cd /d E: -- tck
      cd my_dir\parts
      php make_thumd_ss.php
