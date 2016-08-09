@@ -30,8 +30,8 @@ if (!is_dir($backDir)) {
 $parsDir = "."; // "." - this directory
 
 // добавления к имени файла в конец файла
-$smallPrefix = '';
-$betweenPrefix = ''; 
+$smallPrefix = '1';
+$betweenPrefix = '_'; 
 
 //расширения файлов
 if ($napravlenie == 'pngToGpg') {
@@ -89,7 +89,7 @@ function myImage($inFile, $outFile, $w, $h) {
 
 	// ресэмплирование
 	$image = $img;
-	$image_o = imagecreatetruecolor($w, $h);
+	$image_o = imagecreatetruecolor($w-1, $h);
 	imagecopyresampled($image_o, $image, 0, 0, $outSize['x'], $outSize['y'], $outSize['w'], $outSize['h'], $w_i, $h_i);
 	imagejpeg($image_o,$outFile,100);
 	unset($image_o, $image);
