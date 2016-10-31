@@ -89,7 +89,7 @@ function myImage($inFile, $outFile, $w, $h) {
 
 	// ресэмплирование
 	$image = $img;
-	$image_o = imagecreatetruecolor($w-1, $h);
+	$image_o = imagecreatetruecolor($w-1, $h-1);
 	imagecopyresampled($image_o, $image, 0, 0, $outSize['x'], $outSize['y'], $outSize['w'], $outSize['h'], $w_i, $h_i);
 	imagejpeg($image_o,$outFile,100);
 	unset($image_o, $image);
@@ -127,13 +127,13 @@ if ($handle = opendir($parsDir)) {
 				$outFile = $newDir.'/'.$isin[0].$betweenPrefix.$smallPrefix.'.jpg';
 				if ($w == '' || $h == '') {
 					list($w, $h) = getimagesize($inFile);
-					if(myImage($inFile, $outFile, $w, $h) == 0) {
+					if(myImage($inFile, $outFile, $w+1, $h+1) == 0) {
 						echo "Complit! ".$inFile."\r\n";
 						copy($inFile, $backDir.'/'.$inFile);
 					} 
 					$w=$h='';
 				} else {
-					if(myImage($inFile, $outFile, $w, $h) == 0) {
+					if(myImage($inFile, $outFile, $w+1, $h+1) == 0) {
 						echo "Complit! ".$inFile."\r\n";
 						copy($inFile, $backDir.'/'.$inFile);
 					} 
